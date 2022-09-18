@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Space, Pagination, Table, Tooltip, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import { ViewCountryModal } from "../../src/Modals/ViewCountryModal.tsx";
 
 const DataTable = ({
     countryWiseCount,
@@ -25,17 +26,17 @@ const DataTable = ({
     };
 
     let [filteredData] = useState();
+    const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+    const [selectedRecordForView, setSelectedRecordForView] = useState({});
 
     const itemRender = (current, type, originialElement) => {
         if (type === "prev") {
             return (
-                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                 <a className="text-xl" style={{ color: "#595959" }}>{`<`}</a>
             );
         }
         if (type === "next") {
             return (
-                // eslint-disable-next-line jsx-a11y/anchor-is-valid
                 <a className="text-xl" style={{ color: "#595959" }}>
                     {" "}
                     {`>`}{" "}
@@ -50,7 +51,20 @@ const DataTable = ({
             title: "Country",
             dataIndex: "country",
             width: 110,
-            render: (text) => <a onClick={alert("hi")}>{text}</a>,
+            render: (text, record) => {
+                return (
+                    <Button
+                        type="link"
+                        primary
+                        onClick={() => {
+                            setIsViewModalVisible(true);
+                            setSelectedRecordForView(record);
+                        }}
+                    >
+                        {`${text} ${" "}>`}
+                    </Button>
+                );
+            },
         },
         {
             title: "Total Cases",
@@ -111,6 +125,11 @@ const DataTable = ({
 
     return (
         <>
+            <ViewCountryModal
+                isVisible={isViewModalVisible}
+                setIsVisible={setIsViewModalVisible}
+                selectedRowData={selectedRecordForView}
+            />
             <div className="grid grid-cols-2 gap-4 text-white">
                 <p className="text-white text-3xl font-semibold m-12 text-left">
                     All affected countries

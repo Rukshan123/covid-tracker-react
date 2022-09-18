@@ -12,6 +12,7 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+ 
 
 .App-header {
   background-color: #282c34;
@@ -42,7 +43,8 @@
 }
 
 
-.ant-table , .ant-table-thead > tr > th{
+
+.ant-table , .ant-table-thead > tr > th , .ant-modal-content{
   background-color: #28293E !important;
   color: #ffff !important;
 }

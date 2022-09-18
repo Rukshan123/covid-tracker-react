@@ -3,8 +3,6 @@ import { Col, Row, Card } from "antd";
 import CountUp from "react-countup";
 
 const Cards = ({ totalCases }) => {
-    console.log("totalCases", totalCases);
-
     const CardDetails = ({ count, title }) => {
         return (
             <>
