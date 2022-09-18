@@ -29,6 +29,7 @@ function App() {
                 <Table
                     countryWiseCount={countryWiseCount}
                     totalCountryArrLength={totalCountryArrLength}
+                    setCountryWiseCount={setCountryWiseCount}
                     loadedData={loadedData}
                 ></Table>
             </div>

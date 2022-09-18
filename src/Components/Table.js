@@ -1,13 +1,56 @@
 import React, { useState } from "react";
-import { Space, Pagination, Table, Input } from "antd";
+import { Space, Pagination, Table, Tooltip, Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
-const DataTable = ({ countryWiseCount, totalCountryArrLength, loadedData }) => {
-    const [sortedInfo, setSortedInfo] = useState({});
+const DataTable = ({
+    countryWiseCount,
+    totalCountryArrLength,
+    loadedData,
+
+    setCountryWiseCount,
+}) => {
+    const [page, setPage] = useState(1);
+    const [postPerPage, setPostPerPage] = useState(10);
+    const [searchText, setSearchText] = useState("");
+
+    const indexOfLastPage = page + postPerPage;
+    const indexOfFirstPage = indexOfLastPage - postPerPage;
+    const currentCountryCovidCount = countryWiseCount.slice(
+        indexOfFirstPage,
+        indexOfLastPage
+    );
+
+    const onShowSizeChange = (current, pageSize) => {
+        setPostPerPage(pageSize);
+    };
+
+    let [filteredData] = useState();
+
+    const itemRender = (current, type, originialElement) => {
+        if (type === "prev") {
+            return (
+                // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                <a className="text-xl" style={{ color: "#595959" }}>{`<`}</a>
+            );
+        }
+        if (type === "next") {
+            return (
+                // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                <a className="text-xl" style={{ color: "#595959" }}>
+                    {" "}
+                    {`>`}{" "}
+                </a>
+            );
+        }
+        return originialElement;
+    };
+
     const columns = [
         {
             title: "Country",
             dataIndex: "country",
             width: 110,
+            render: (text) => <a onClick={alert("hi")}>{text}</a>,
         },
         {
             title: "Total Cases",
@@ -50,12 +93,86 @@ const DataTable = ({ countryWiseCount, totalCountryArrLength, loadedData }) => {
             width: 110,
         },
     ];
+    const handleChange = (e) => {
+        setSearchText(e.target.value);
+        if (e.target.value === "") {
+            loadedData();
+        }
+    };
+
+    const countrySearch = (searchText) => {
+        filteredData = countryWiseCount.filter((value) => {
+            return value.country
+                .toLowerCase()
+                .includes(searchText.toLowerCase());
+        });
+        setCountryWiseCount(filteredData);
+    };
+
     return (
-        <Table
-            columns={columns}
-            dataSource={countryWiseCount}
-            pagination={false}
-        ></Table>
+        <>
+            <div className="grid grid-cols-2 gap-4 text-white">
+                <p className="text-white text-3xl font-semibold m-12 text-left">
+                    All affected countries
+                </p>
+                <Space style={{ margin: 10 }}>
+                    <input
+                        placeholder="Search By Country"
+                        onChange={handleChange}
+                        type="text"
+                        style={{
+                            height: "40px",
+                            borderRadius: "25px",
+                            backgroundColor: "#28293E",
+                            width: "500px",
+                            color: "#fff",
+                            padding: "15px",
+                        }}
+                        // allowClear
+                        value={searchText}
+                    ></input>
+                    <Tooltip title="search">
+                        <Button
+                            onClick={() => {
+                                countrySearch(searchText);
+                            }}
+                            type="primary"
+                            shape="circle"
+                            icon={<SearchOutlined />}
+                        />
+                    </Tooltip>
+                </Space>
+            </div>
+            <Table
+                style={{
+                    backgroundColor: "#28293E",
+                    padding: "25px",
+                }}
+                columns={columns}
+                dataSource={
+                    currentCountryCovidCount.length !== 0
+                        ? currentCountryCovidCount
+                        : countryWiseCount
+                }
+                pagination={false}
+                filteredData={filteredData}
+                stateSearch={countrySearch}
+            ></Table>
+            <Space style={{ margin: 15 }}>
+                <Pagination
+                    onChange={(value) => {
+                        setPage(value);
+                    }}
+                    pageSize={postPerPage}
+                    borderd
+                    postPerPage={postPerPage}
+                    total={totalCountryArrLength}
+                    current={page}
+                    onShowSizeChange={onShowSizeChange}
+                    itemRender={itemRender}
+                ></Pagination>
+            </Space>
+        </>
     );
 };
 

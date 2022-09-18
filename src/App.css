@@ -23,7 +23,34 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.ant-input-affix-wrapper > input.ant-input {
+  background-color: #28293E;
+  
+}
 
+.ant-input{
+  color: "#ffff" !important
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 0px !important;
+  transition: none;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td , .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: none !important;
+}
+
+
+.ant-table , .ant-table-thead > tr > th{
+  background-color: #28293E !important;
+  color: #ffff !important;
+}
+
+thead{
+  background-color: #28293E !important;
+  color: #ffff !important;
+}
 .App-link {
   color: #61dafb;
 }
