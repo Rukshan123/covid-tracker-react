@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import Cards from "./Components/Cards";
+import Table from "./Components/Table";
+import data from "./data";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [totalCases, setTotalCases] = useState([]);
+    const [countryWiseCount, setCountryWiseCount] = useState([]);
+    const [totalCountryArrLength, setTotalCountryArrLength] = useState("");
+    let [filtered] = useState();
+    useEffect(() => {
+        loadedData();
+    }, []);
+
+    const loadedData = async () => {
+        setTotalCases(data.getAll);
+        setCountryWiseCount(data.getAllCountries);
+        setTotalCountryArrLength(data.getAllCountries.length);
+    };
+
+    return (
+        <div className="App">
+            <div className="m-12">
+                <h1 className="text-left text-4xl font-semibold text-white">
+                    Global Covid-19 Update
+                </h1>
+                <Cards totalCases={totalCases} />
+                <Table
+                    countryWiseCount={countryWiseCount}
+                    totalCountryArrLength={totalCountryArrLength}
+                    loadedData={loadedData}
+                ></Table>
+            </div>
+        </div>
+    );
 }
 
 export default App;
