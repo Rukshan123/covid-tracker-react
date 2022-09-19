@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Space, Pagination, Table, Tooltip, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { ViewCountryModal } from "../../src/Modals/ViewCountryModal.tsx";
+import { useSelector } from "react-redux";
 
-const DataTable = ({
-    countryWiseCount,
-    totalCountryArrLength,
-    loadedData,
+const DataTable = ({ loadedData, setCountryWiseCount, countryWiseCount }) => {
+    let totalCountryArrLength = useSelector((state) => state.totalCases);
+    totalCountryArrLength = totalCountryArrLength["totalCountryArrLength"];
 
-    setCountryWiseCount,
-}) => {
     const [page, setPage] = useState(1);
     const [postPerPage, setPostPerPage] = useState(10);
     const [searchText, setSearchText] = useState("");

@@ -1,8 +1,10 @@
 import React from "react";
 import { Col, Row, Card } from "antd";
-import CountUp from "react-countup";
+import { useSelector } from "react-redux";
 
-const Cards = ({ totalCases }) => {
+const Cards = () => {
+    let value = useSelector((state) => state.totalCases);
+
     const CardDetails = ({ count, title }) => {
         return (
             <>
@@ -15,9 +17,13 @@ const Cards = ({ totalCases }) => {
             </>
         );
     };
+
+    value = value["covidCaseDetails"];
+    console.log(value);
+
     return (
         <>
-            {totalCases.map((item, index) => (
+            {value?.map((item, index) => (
                 <div className="grid grid-cols-2 gap-4 text-white">
                     <div
                         key={index}

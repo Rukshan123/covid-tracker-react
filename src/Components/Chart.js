@@ -23,8 +23,7 @@ ChartJS.register(
     Filler
 );
 
-const Chart = ({ totalCases }) => {
-    console.log(totalCases, "totalCases ");
+const Chart = () => {
     const [data, setData] = useState({
         labels: [
             "March",

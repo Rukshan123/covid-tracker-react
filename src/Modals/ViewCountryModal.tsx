@@ -6,8 +6,6 @@ export const ViewCountryModal = ({
     setIsVisible,
     selectedRowData,
 }) => {
-    console.log(selectedRowData, "selectedRowData");
-
     const ViewItem = ({ label, value }) => {
         return (
             <div>

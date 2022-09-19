@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@reduxjs/toolkit": "^1.2.5",
     "react-chartjs-2": "^3.0.3",
     "chart.js": "^3.3.2",
     "@testing-library/jest-dom": "^5.16.5",
@@ -17,7 +18,9 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.1.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "redux-toolkit": "^1.1.2",
+    "react-redux": "^7.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
